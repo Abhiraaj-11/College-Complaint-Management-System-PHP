@@ -9,7 +9,6 @@ if (isset($_SESSION['user_id'])) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = $_POST['password'];
-    $role = $_POST['role'];
     $email = $_POST['email'];
 
     // Check if the username already exists
@@ -23,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = "Username already exists";
     } else {
         // Insert the new user into the database (no password hashing)
-        $sql = "INSERT INTO users (username, password, role, email) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
         $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "ssss", $username, $password, $role, $email);
+        mysqli_stmt_bind_param($stmt, "sss", $username, $password, $email);
         if (mysqli_stmt_execute($stmt)) {
             header("Location: index.php");
             exit();
@@ -60,13 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="form-group">
                     <label>Email:</label>
                     <input type="email" id="email" name="email" oninput="autoCompleteEmail()" required>
-                </div>
-                <div class="form-group">
-                    <label>Role:</label>
-                    <select name="role" required>
-                        <option value="student">User</option>
-                        <option value="admin">Admin</option>
-                    </select>
                 </div>
                 <button type="submit">Register</button>
             </form>
