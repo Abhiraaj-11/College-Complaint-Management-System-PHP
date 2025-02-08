@@ -24,4 +24,4 @@ CREATE TABLE complaints (
 
 -- Insert default admin user (password: admin123)
 INSERT INTO users (username, password, role, email) 
-VALUES ('admin', '$2y$10$8KzQ8IzAF9tXXXXXXXXXXeYyXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'admin', 'admin@college.edu');
+VALUES ('admin', 'admin123', 'admin', 'admin@college.edu');
